@@ -39,14 +39,15 @@ def generate_ratio_df(df1, df2):
 def finite_diff(M_old, M_current):
     """ Calculates the finite difference between the old and current Mach numbers"""
     MachOld = np.matrix([M_old])
-    MachCurrent = M_current
+    M_current = M_current
+
     S = M_old - M_current
 
     c = min(np.size(S), 4)
     cVec = np.transpose(np.matrix(range(c)))
-    A = np.matrix((c, c))
+    A = np.matrix(np.array(S) ** np.array(cVec))
     b = 1.0 * (cVec == 0)
 
     x = np.linalg.solve(A, b)
-    x = np.linspace.pinv(A) * b
+    x = np.linalg.pinv(A) * b
 

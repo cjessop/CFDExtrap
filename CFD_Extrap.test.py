@@ -1,26 +1,35 @@
 import numpy as np
 from CFD_Extrap import finite_diff
 
-# Test case 1
-M_old = [1, 2, 3, 4, 5]
-M_current = [2, 3, 4, 5, 6]
-expected_output = np.array([-1, -1, -1, -1, -1])
-assert np.allclose(finite_diff(M_old, M_current), expected_output)
+def test_finite_diff():
+    # Test case 1
+    M_old = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0]
+    M_current = 1.0
+    expected_output = np.matrix([1.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+    assert np.allclose(finite_diff(M_old, M_current), expected_output)
 
-# Test case 2
-M_old = [1, 2, 3, 4, 5]
-M_current = [1, 2, 3, 4, 5]
-expected_output = np.array([0, 0, 0, 0, 0])
-assert np.allclose(finite_diff(M_old, M_current), expected_output)
+    # Test case 2
+    M_old = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0]
+    M_current = 1.5
+    expected_output = np.matrix([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+    assert np.allclose(finite_diff(M_old, M_current), expected_output)
 
-# Test case 3
-M_old = [1, 2, 3, 4, 5]
-M_current = [0, 0, 0, 0, 0]
-expected_output = np.array([1, 2, 3, 4, 5])
-assert np.allclose(finite_diff(M_old, M_current), expected_output)
+    # Test case 3
+    M_old = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0]
+    M_current = 2.0
+    expected_output = np.matrix([0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
+    assert np.allclose(finite_diff(M_old, M_current), expected_output)
 
-# Test case 4
-M_old = [1, 2, 3, 4, 5]
-M_current = [5, 4, 3, 2, 1]
-expected_output = np.array([4, 2, 0, -2, -4])
-assert np.allclose(finite_diff(M_old, M_current), expected_output)
+    # Test case 4
+    M_old = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0]
+    M_current = 1.2
+    expected_output = np.matrix([0.0, 1.0, 0.0, 0.0, 0.0, 0.0])
+    assert np.allclose(finite_diff(M_old, M_current), expected_output)
+
+    # Test case 5
+    M_old = [1.0, 1.2, 1.4, 1.6, 1.8, 2.0]
+    M_current = 1.3
+    expected_output = np.matrix([0.0, 0.5, -0.16666667, 0.04166667, -0.00793651, 0.00119048])
+    assert np.allclose(finite_diff(M_old, M_current), expected_output)
+
+test_finite_diff()

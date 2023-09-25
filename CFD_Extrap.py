@@ -15,10 +15,11 @@ def get_column_names(df):
     """
     return list(df.columns)
 
-rat_press, rat_temp, rat_den = [], [], []
+
 
 #Calculate all of the ratios for each index within 2 different dataframes
 def calculate_ratios(df1, df2):
+    rat_press, rat_temp, rat_den = [], [], []
     for i in range(len(df1)):
         rat_press.append(df1['Pressure'][i]/df2['Pressure'][i])
         rat_temp.append(df1['Temperature'][i]/df2['Temperature'][i])
@@ -27,6 +28,7 @@ def calculate_ratios(df1, df2):
 
 #Genereate a new dataframe with the ratios
 def generate_ratio_df(df1, df2):
+    calculate_ratios(df1, df2)
     """ Generates a new dataframe with the ratios of the 2 dataframes """
     df_new = df2.copy()
     for i in range(df1):

@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import sys
+import os
 
 class CFD_Extrapolation():
     def __init__(self, df1, df2, filepath):
@@ -65,3 +67,32 @@ class CFD_Extrapolation():
         df_new['Temperature'] = df_new['Temperature'].apply(lambda x: x * 1.2)
         df_new['Density'] = df_new['Density'].apply(lambda x: x * 1.2)
         return df_new
+
+   
+    def check_csv_file(self):
+        """ Checks to see if the restart csv file is present in the current working directory """
+        if os.path.isfile(self.filepath):
+            return True
+        else:
+            return False
+        
+    def parse_dict(self, file_name, dict_name):
+        """ Parses a dictionary from a file """
+        with open(file_name, 'r') as f:
+            f_data = f.read()
+
+        for key in dict_name:
+            f_data = f_data.replace(key, str(dict_name[key]))
+
+        with open(file_name, 'w') as f:
+            f.write(f_data)
+    
+    
+    
+    # def check_csv_file(self):
+    #     """ Checks to see if the restart csv file is present in the current working directory """
+    #     try:
+    #         open('restart.csv')
+    #     except IOError:
+    #         print('restart.csv not found in current working directory')
+    #         sys.exit(1)
